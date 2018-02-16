@@ -31,16 +31,16 @@ webdav-watch watch [folder_path] -c path/to/config.json
 
 which has to have next structure: 
 
-```
+```json
 {
-  remote: 'https://webdav-server.com/remote/root/folder',
-  username: 'username',
-  folder: '~/project',
-  patterns: [
-    '!**/.idea/**',
-    '!**/.git/**',
-    'ANY_VALID_GLOB_HERE'
-  ],
+  "remote": "https://webdav-server.com/remote/root/folder",
+  "username": "username",
+  "folder": "~/project",
+  "patterns": [
+    "!**/.idea/**",
+    "!**/.git/**",
+    "ANY_VALID_GLOB_HERE"
+  ]
 }
 ```
 
