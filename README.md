@@ -16,10 +16,13 @@ npm install webdav-watch -g
 ## Usage
 
 ```bash
-webdav-watch watch [folder_path] -p '!**/.idea/**' -p '!**/.git/**' -r https://webdav-server.com/remote/root/folder -u username
+webdav-watch watch [folder] -p '!**/.idea/**' -p '!**/.git/**' -r https://webdav-server.com/remote/root/folder -u username
 ```
 
 On first call you will be requested for entering password, which will be stored in your system's keychain.
+
+If neither `folder` or `patters`(`-p`) have been provided, current working dir is being used. `folder` can be useful when 
+you need to watch directory other than `cwd` and is used by `webdav-watch` to build correct remote path for uploading file.  
 
 ### Configuration
 
