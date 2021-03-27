@@ -17,6 +17,7 @@ const nodeFetch = require('node-fetch');
 const keytar = require('keytar');
 const url = require('url');
 const inquirer = require('inquirer');
+const https = require('https');
 
 require('yargs')
   .command('watch [folder]', 'watch the folder', (yargs) => {
@@ -33,6 +34,12 @@ require('yargs')
         alias: 'r',
         describe: 'Webdav server url',
         type: 'string',
+      })
+      .option('ssl', {
+        alias: 's',
+        describe: 'Suppress ssl issues',
+        type: 'boolean',
+        default: false
       })
       .option('username', {
         alias: 'u',
@@ -85,7 +92,9 @@ require('yargs')
 
       logger.silly(`About to upload file ${chalk.cyan(remoteFilepath)} on remote server ${chalk.cyan(argv.remote)}`);
 
-      fetch(remoteFilepath, { body: fileContents })
+      const httpsAgent = new https.Agent({ rejectUnauthorized: false });
+      const opts = argv.ssl ? { body: fileContents, agent: httpsAgent } : { body: fileContents };
+      fetch(remoteFilepath, opts)
         .then(() => {
           logger.info(`Successfully uploaded file ${chalk.green(remoteFilepath)}`);
           notifier.notify({
